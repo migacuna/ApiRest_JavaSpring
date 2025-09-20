@@ -1,8 +1,9 @@
 package EcoBackEnd.utils;
 
 import EcoBackEnd.dto.PersonaDto;
-import EcoBackEnd.dto.TipoPersonaDto;
+import EcoBackEnd.dto.ProductoDto;
 import EcoBackEnd.modelo.Persona;
+import EcoBackEnd.modelo.Producto;
 
 public class DtoMapper {
 
@@ -26,5 +27,19 @@ public class DtoMapper {
         Persona persona = new Persona();
         toEntity(personaDto, persona);
         return persona;
+    }
+
+    private static void toEntity(ProductoDto productoDto, Producto producto){
+        producto.setIdProducto(productoDto.getIdProducto());
+        producto.setNombre(productoDto.getNombre());
+        producto.setDescripcion(productoDto.getDescripcion());
+        producto.setPrecio(productoDto.getPrecio());
+        producto.setTipoProducto(productoDto.getTipoProducto());
+    }
+
+    public static Producto toEntity(ProductoDto productoDto){
+        Producto producto = new Producto();
+        toEntity(productoDto, producto);
+        return producto;
     }
 }

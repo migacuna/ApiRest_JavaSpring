@@ -1,7 +1,6 @@
 package EcoBackEnd.servicio;
 
 import EcoBackEnd.dto.PersonaDto;
-import EcoBackEnd.modelo.Persona;
 
 import java.util.List;
 import java.util.Optional;

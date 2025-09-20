@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /*@Entity
 @Table(name="PERSONA", indexes = {
@@ -17,8 +20,7 @@ import javax.persistence.*;
         @Index(name="correo_idx", columnList="CORREO"),
         })*/
 
-@Table(name="PERSONA")
-
+@Table(name="persona")
 @Data
 @Entity
 @AllArgsConstructor
@@ -31,7 +33,7 @@ public class Persona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idPersona", updatable = false, nullable = false)
+    @Column(name="idPersona", updatable = false, nullable = false, unique = true)
     private Long idPersona;
     private String rut;
     private String razonSocial;
@@ -39,6 +41,7 @@ public class Persona {
     private String direccion;
     private Integer telefono;
     private String correo;
+    //private TipoPersona tipoPersona;
 
     public PersonaDto toDto(){
         PersonaDto personaDto = new PersonaDto();
@@ -49,7 +52,7 @@ public class Persona {
         personaDto.setDireccion(this.direccion);
         personaDto.setTelefono(this.telefono);
         personaDto.setCorreo(this.correo);
-        personaDto.setTipoPersona(this.tipoPersona.toDTO());
+        personaDto.setTipoPersona(this.tipoPersona);
         return personaDto;
     }
 
@@ -57,6 +60,9 @@ public class Persona {
     @JoinColumn(name = "idTipoPersona", referencedColumnName = "idTipoPersona")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private TipoPersona tipoPersona;
+
+    @OneToOne
+    private VentaCab ventaCabs;
 
     @Override
     public String toString() {

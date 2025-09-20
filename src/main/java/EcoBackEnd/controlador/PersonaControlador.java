@@ -1,5 +1,6 @@
 package EcoBackEnd.controlador;
 
+import EcoBackEnd.Exeption.ClientNotFoundExeption;
 import EcoBackEnd.dto.PersonaDto;
 import EcoBackEnd.servicio.PersonaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PersonaControlador {
         return ResponseEntity.ok(personaServicio.findAll());
     }
 
-    @PostMapping("/registrar-personas")
+    @PostMapping("/registra-personas")
     @ResponseStatus(HttpStatus.CREATED)
     public void guardarPersona(@RequestBody PersonaDto personaDto){
         personaServicio.Insert(personaDto);
@@ -65,6 +66,12 @@ public class PersonaControlador {
         PersonaDto personaDto1 = personaServicio.findById(id);
         personaServicio.delete(personaDto1);
     }
+
+    @ExceptionHandler(ClientNotFoundExeption.class)
+    public ResponseEntity<String> handleClienteNotFoundException(ClientNotFoundExeption ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 
     /*@ResponseStatus(value = HttpStatus.OK)
 

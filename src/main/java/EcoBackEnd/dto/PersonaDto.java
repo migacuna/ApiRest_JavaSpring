@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonaDto {
+public class PersonaDto extends Persona {
 
     private Long idPersona;
     private String rut;
